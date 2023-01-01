@@ -1,0 +1,13 @@
+#include <bits/stdc++.h> 
+#include<unordered_map>
+int missingNumber(int n, vector<int> &arr){
+    // Write your code here.
+    int res =0 ;
+    for(int i=0 ;i<n ; i++){
+        res = res ^ arr[i];
+    }
+    return res ;
+}
+
+
+//here we are using the concept of xor (a^a = 0 also 0^a = a ) therefore even occurence numbers will cancel out and the only one left will be the one with odd number of occurences
