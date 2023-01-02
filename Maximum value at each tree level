@@ -1,0 +1,37 @@
+class Solution {
+  public:
+    vector<int> maximumValue(Node* node) {
+        //code here
+        //here we use the iterative method , also we can use the resursive approach 
+        vector<int> ans ;
+        if(!node) return ans ;
+        
+        queue<Node*> q ;
+        q.push(node);
+        
+        while(1){
+            int nodecount = q.size();
+            
+            if(nodecount == 0) break ;
+            int max = INT_MIN ;
+            
+            while(nodecount--){
+                Node* frontnode = q.front() ;
+                q.pop();
+                int frontval = frontnode->data ;
+                if(frontval > max){
+                    max = frontval ;
+                }
+                //now checking if the left or right child exists for the particular node 
+                if(frontnode->left){
+                    q.push(frontnode->left);
+                }
+                if(frontnode->right){
+                    q.push(frontnode->right);
+                }
+            }
+            ans.push_back(max);
+        }
+        return ans ;
+    }
+};
