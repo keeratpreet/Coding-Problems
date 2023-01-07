@@ -1,0 +1,69 @@
+//{ Driver Code Starts
+// Initial Template for C++
+#include <bits/stdc++.h>
+using namespace std;
+
+
+// } Driver Code Ends
+// User function Template for C++\
+
+//here we will solve this problem by first sorting the intervals vector on the basis os the start tym and then we will use the 
+//concept of dynamic programming and will update dp on the non-intersecting intervals and then will look for the maximum in the created dp 
+//the max in the dp would be our solution 
+
+
+class Solution {
+  public:
+    static bool cmp(vector<int> &a , vector<int> &b){
+        if(a[0]==b[0] && a[1]==b[1]) return a[2]>b[2] ; //jab start and end time same aajaye to more profit waaale ko upar rakhp 
+        else if(a[0]==b[0]) return a[1]<b[1] ; //one with lesser ending tym
+        else{
+            return a[0]<=b[0] ;
+        }
+    }
+    int maximum_profit(int n, vector<vector<int>> &intervals) {
+        // Write your code here.
+        sort(intervals.begin() , intervals.end() , cmp);
+        
+        vector<int> dp(n,-1);
+        for(int i =0 ; i<n ; i++){
+            dp[i] = intervals[i][2] ; //dp mai har interval ka profit initially store krwa lenge 
+        }
+        
+        for(int i = 0 ; i<n ; i++){
+            for(int j=0 ; j<i ; j++){
+                if(intervals[j][1]<=intervals[i][0] && intervals[j][0]<intervals[i][0]){
+                    // non overlapping ki condn likhi hai 
+                    dp[i] = max(dp[i],intervals[i][2]+dp[j]);
+                }
+            }
+        }
+        int ans = 0;
+        for(int i =0 ; i< n ; i++){
+            ans = max(ans , dp[i]);
+        }
+        
+        return ans ;
+    }
+};
+
+//{ Driver Code Starts.
+
+int main() {
+
+    int t;
+    cin >> t;
+    while (t--) {
+        int n;
+        cin >> n;
+        vector<vector<int>> intervals(n, vector<int>(3));
+        for (int i = 0; i < n; i++) {
+            cin >> intervals[i][0] >> intervals[i][1] >> intervals[i][2];
+        }
+        Solution obj;
+        cout << obj.maximum_profit(n, intervals) << endl;
+    }
+    return 0;
+}
+
+// } Driver Code Ends
