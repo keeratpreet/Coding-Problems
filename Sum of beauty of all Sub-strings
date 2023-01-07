@@ -1,0 +1,54 @@
+//{ Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
+
+
+// } Driver Code Ends
+// User function Template for C++
+
+class Solution {
+  public: 
+  int max_min(vector<int> &m){
+    //   int n = m.size();
+    //   if( n == 0) return 0 ;
+      int max = INT_MIN ;
+      int min = INT_MAX ;
+      for(auto i:m){
+          if(i==0) continue ;
+          if(i > max){
+              max = i ;
+          }
+          if(i<min){
+              min = i ;
+          }
+      }
+      return max-min ;
+  }
+    int beautySum(string s) {
+        // Your code goes here
+        int n = s.length();
+        int sum = 0 ;
+        for(int i =0 ; i< n ; i++){
+            vector<int> freq(26,0);
+            for(int j=i ; j<s.size() ; j++){
+                freq[s[j]-'a']++ ;
+                sum+= max_min(freq);
+            }
+        }
+        return sum ;
+    }
+};
+
+//{ Driver Code Starts.
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        string s;
+        cin >> s;
+        Solution obj;
+        cout << obj.beautySum(s) << endl;
+    }
+    return 0;
+}
+// } Driver Code Ends
