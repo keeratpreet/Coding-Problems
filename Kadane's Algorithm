@@ -1,0 +1,30 @@
+class Solution{
+    public:
+    // arr: input array
+    // n: size of array
+    //Function to find the sum of contiguous subarray with maximum sum.
+    long long maxSubarraySum(int arr[], int n){
+        
+        // Your code here
+        vector<long long> dp(n,0);
+        long long prev = 0 ;
+        for(int i = 0 ; i<n ; i++){
+            if(prev < 0 ){
+            dp[i] = max(prev ,  arr[i]+0ll);
+            
+            }
+            if(prev >= 0){
+                dp[i] = prev + arr[i] ;
+            }
+            prev = dp[i];
+        }
+        long long big = dp[0];
+        for(int i = 0 ; i< n ; i++){
+            if(dp[i]>big){
+                big = dp[i]; 
+            }
+        }
+        return big ;
+        
+    }
+};
