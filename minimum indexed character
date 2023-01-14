@@ -1,0 +1,39 @@
+class Solution
+{
+  public:
+    //Function to find the minimum indexed character.
+    int minIndexChar(string str, string patt)
+    {
+        // Your code here
+        unordered_map<char,int>m1 ;
+        unordered_map<char,int>m2 ;
+        int n1 = str.length();
+        int n2 = patt.length();
+        for(int i =0 ; i<n1 ; i++){
+            if(m1.find(str[i])==m1.end()){
+                m1[str[i]]=i ;
+            }
+        }
+        for(int i =0 ; i<n2 ; i++){
+            if(m2.find(patt[i])==m2.end()){
+                m2[patt[i]]=i ;
+            }
+        }
+        int mini = INT_MAX  ;
+        for(auto i:m2){
+            char key = i.first ;
+            if(m1.find(key) != m1.end()){
+                int index = m1[key] ;
+                // int index2 = i.second();
+                if(index<mini){
+                    mini = index ;
+                }
+            }
+        }
+     
+        if(mini != INT_MAX){
+            return mini ;
+        }
+        return -1 ;
+    }
+};
