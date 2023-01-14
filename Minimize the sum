@@ -1,0 +1,23 @@
+class Solution {
+public:
+
+    int minimizeSum(int n, vector<int> arr) {
+        // code here
+        int ans=0 ;
+        priority_queue<int , vector<int> , greater<int> >pq;
+        for(int i = 0 ; i< n ; i++){
+            pq.push(arr[i]);
+        }
+        while(!pq.empty()){
+            if(pq.size()==1) return ans ;
+            
+            int a = pq.top();
+            pq.pop();
+            int b = pq.top();
+            pq.pop();
+            ans+= a+b ;
+            pq.push(a+b);
+        }
+        return ans ;
+    }
+};
