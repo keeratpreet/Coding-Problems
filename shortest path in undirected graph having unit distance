@@ -1,0 +1,44 @@
+class Solution {
+  public:
+    vector<int> shortestPath(vector<vector<int>>& edges, int N,int M, int src){
+        // step-1 -> create adj list
+        unordered_map<int, list<int>> adj;
+        for(int i = 0 ; i<edges.size() ; i++){
+            int u = edges[i][0] ;
+            int v = edges[i][1] ;
+            
+            adj[u].push_back(v) ;
+            adj[v].push_back(u) ;
+        }
+
+        // step-2 -> initialize distances
+        unordered_map<int, int> dist;
+        for (int i = 0; i < N; i++) {
+            dist[i] = -1;
+        }
+        dist[src] = 0;
+
+        // step-3 -> do BFS
+        queue<int> q;
+        q.push(src);
+        while (!q.empty()) {
+            int front = q.front();
+            q.pop();
+            for (auto i : adj[front]) {
+                if (dist[i] == -1 ) {
+                    dist[i] = dist[front] + 1;
+                    q.push(i);
+                }
+            }
+        }
+
+        // step-4 -> store the distances in ans array
+        vector<int> ans;
+        // ans.push_back(dist[]);
+        for(int i = 0 ; i< N ; i++){
+            ans.push_back(dist[i]);
+        }
+        
+        return ans;
+    }
+};
