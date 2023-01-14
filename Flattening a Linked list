@@ -1,0 +1,47 @@
+/* Node structure  used in the program
+
+struct Node{
+	int data;
+	struct Node * next;
+	struct Node * bottom;
+	
+	Node(int x){
+	    data = x;
+	    next = NULL;
+	    bottom = NULL;
+	}
+	
+};
+*/
+
+
+
+class Solution {
+public:
+    Node *flatten(Node *root)
+    {
+        // Your code here
+        vector<int> elements ; 
+        while(root != NULL){
+            elements.push_back(root->data);
+            
+            while(root->bottom){
+                
+                elements.push_back(root->bottom->data);
+                root->bottom = root->bottom->bottom ;
+            }
+            root = root->next ;
+        }
+        sort(elements.begin() , elements.end());
+        int n = elements.size();
+        Node * head = new Node(elements[0]);
+ 
+        Node * ptr = head ;
+        for(int i =1 ; i<n ; i++){
+           ptr->bottom  = new Node(elements[i]) ; 
+        
+            ptr = ptr->bottom ;
+        }
+        return head ;
+    }
+};
