@@ -1,0 +1,23 @@
+class Solution {
+  public:
+    long long int maxSumLCM(int n) 
+    {
+        // code here
+        int i =1 ;
+        long long sum = 0 ;
+        for(int i =1 ; i<= sqrt(n) ; i++){
+            if(n%i == 0){
+               sum+=i ;
+               if(i != n/i){
+                   //reason -> we write the factors in the foloowing manner (eg for 40)
+                   // 1*40
+                   // 2*20
+                   // 4*10
+                   // 5*8    the remaining are just the opp of these 
+                   sum += n/i ;
+               }
+            }
+        }
+        return sum ;
+    }
+};
