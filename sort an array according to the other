@@ -1,0 +1,48 @@
+class Solution{
+    public:
+    // A1[] : the input array-1
+    // N : size of the array A1[]
+    // A2[] : the input array-2
+    // M : size of the array A2[]
+    
+    //Function to sort an array according to the other array.
+    vector<int> sortA1ByA2(vector<int> arr1, int n, vector<int> arr2, int m) 
+    {
+        //Your code here
+        vector<int> ans ;
+        unordered_map<int,int> m1 ;
+        for(int i = 0 ; i<n ; i++){
+            m1[arr1[i]]++ ;
+        }
+        // unordered_map<int,int> m2 ;
+        // for(int i = 0 ; i<m ; i++){
+        //     m2[arr2[i]]++ ;
+        // }
+        
+        for(int i = 0 ; i<m ; i++){
+            if(m1.find(arr2[i]) != m1.end()){
+                while(m1[arr2[i]]!=0){
+                    ans.push_back(arr2[i]);
+                    m1[arr2[i]]-- ;
+                }
+            }
+        }
+        vector<int> naya ; 
+        for(auto i:m1){
+            int key = i.first ;
+            int freq = i.second;
+            if(freq>0){
+                while(freq){
+                    naya.push_back(key);
+                    freq-- ;
+                }
+            }
+        }
+        int s = naya.size();
+        sort(naya.begin() , naya.end());
+        for(int i= 0 ; i<s ; i++){
+            ans.push_back(naya[i]);
+        }
+        return ans ;
+    } 
+};
