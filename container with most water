@@ -1,0 +1,16 @@
+long long maxArea(long long arr[], int n)
+{
+    // Your code goes here
+    long long area = 0 ;
+    int s = 0 , e = n-1 ;
+    while(s<e){
+        long long newarea = min(arr[s],arr[e])*(e-s) ;
+        area = max(area , newarea);
+        if(arr[s]<arr[e]){
+            s++ ;
+        }else{
+            e-- ;
+        }
+    }
+    return area ;
+}
