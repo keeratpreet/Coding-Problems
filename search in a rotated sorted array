@@ -1,23 +1,48 @@
-class Solution {
-public:
-
-    int minimizeSum(int n, vector<int> arr) {
-        // code here
-        int ans=0 ;
-        priority_queue<int , vector<int> , greater<int> >pq;
-        for(int i = 0 ; i< n ; i++){
-            pq.push(arr[i]);
+class Solution{
+    public:
+    
+    int pivot(int * arr , int s , int e){
+        //pivot means min element's index , it is req so that we can apply binary search on left and right part of the pivot acc to the situaton
+        // int s =0 , e = n-1 ;
+        int mid = s+(e-s)/2 ;
+        while(s<e){
+            if(arr[mid]>=arr[0] ) s = mid+1 ;
+            else e = mid ;
+            mid = s+(e-s)/2 ;
         }
-        while(!pq.empty()){
-            if(pq.size()==1) return ans ;
-            
-            int a = pq.top();
-            pq.pop();
-            int b = pq.top();
-            pq.pop();
-            ans+= a+b ;
-            pq.push(a+b);
-        }
-        return ans ;
+        return s ;
     }
+    
+    int binary_search(int* arr, int s, int e, int key){
+        // l: The starting index
+        // h: The ending index, you have to search the key in this range
+        
+        //complete the function here
+        int mid = s+(e-s)/2 ;
+        while(s<=e){
+            int ele = arr[mid];
+            if(ele == key) return mid ;
+            else if(ele < key ){
+                s = mid+1 ;
+            }else{
+                e = mid-1 ;
+            }
+            mid = s+(e-s)/2 ;
+        }
+        
+        return -1 ;
+    }
+    
+    int search(int arr[],int s , int e , int k){
+        int min = pivot(arr,s,e);
+        
+        if(min == 0) return binary_search(arr,0,e,k) ;
+        
+        if(arr[min]<=k && k<= arr[e]){
+            return binary_search(arr,min,e,k);
+        }else{
+            return binary_search(arr,0,min-1,k);
+        }
+    }
+    
 };
